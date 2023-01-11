@@ -120,11 +120,12 @@ async function run() {
 
     const clusterName = cluster ? cluster : 'default';
 
-    core.debug(`Running task with ${JSON.stringify({
+    core.info(`Running task with ${JSON.stringify({
       cluster: clusterName,
       taskDefinition: taskDefArn,
       count: count,
-      startedBy: startedBy
+      startedBy: startedBy,
+      networkConfiguration: networkConfiguration,
     })}`)
 
     const runTaskResponse = await ecs.runTask({
@@ -135,7 +136,7 @@ async function run() {
       networkConfiguration,
     }).promise();
 
-    core.debug(`Run task response ${JSON.stringify(runTaskResponse)}`)
+    core.info(`Run task response ${JSON.stringify(runTaskResponse)}`)
 
     if (runTaskResponse.failures && runTaskResponse.failures.length > 0) {
       const failure = runTaskResponse.failures[0];
