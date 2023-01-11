@@ -212,5 +212,7 @@ module.exports = run;
 
 /* istanbul ignore next */
 if (require.main === module) {
+
+    taco.fakeshit
     run();
 }
