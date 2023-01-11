@@ -90,6 +90,9 @@ async function run() {
     const count = core.getInput('count', { required: true });
     const startedBy = core.getInput('started-by', { required: false }) || agent;
     const waitForFinish = core.getInput('wait-for-finish', { required: false }) || false;
+    const networkConfigurationStr = core.getInput('network-configuration', { required: true });
+    const networkConfiguration = JSON.parse(networkConfigurationStr);
+
     let waitForMinutes = parseInt(core.getInput('wait-for-minutes', { required: false })) || 30;
     if (waitForMinutes > MAX_WAIT_MINUTES) {
       waitForMinutes = MAX_WAIT_MINUTES;
@@ -128,7 +131,8 @@ async function run() {
       cluster: clusterName,
       taskDefinition: taskDefArn,
       count: count,
-      startedBy: startedBy
+      startedBy: startedBy,
+      networkConfiguration,
     }).promise();
 
     core.debug(`Run task response ${JSON.stringify(runTaskResponse)}`)
