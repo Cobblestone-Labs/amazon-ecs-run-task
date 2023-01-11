@@ -133,7 +133,7 @@ async function run() {
       taskDefinition: taskDefArn,
       count: count,
       startedBy: startedBy,
-      networkConfiguration,
+      networkConfiguration: networkConfiguration,
     }).promise();
 
     core.info(`Run task response ${JSON.stringify(runTaskResponse)}`)
